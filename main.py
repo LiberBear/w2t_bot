@@ -10,7 +10,6 @@ import re
 import subprocess
 import configparser
 import os
-from _overlapped import NULL
 
 config = configparser.ConfigParser()
 
