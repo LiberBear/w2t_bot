@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.error import TelegramError, Unauthorized, BadRequest, TimedOut, ChatMigrated, NetworkError
 import telegram
 from functools import wraps
 import urllib.request
@@ -10,7 +11,6 @@ import re
 import subprocess
 import configparser
 import os
-from _overlapped import NULL
 
 config = configparser.ConfigParser()
 
@@ -77,14 +77,15 @@ def convert_webm(bot, update):
             if file:
                 logger.info("fetched filesize: %0.0iK", os.stat(INPUT_FILE).st_size/1024)
             subprocess.run(CMD)
-            if (OUTPUT_FILE):
-                bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.UPLOAD_VIDEO)
-                bot.send_video(chat_id=update.message.chat_id, video=open(OUTPUT_FILE, 'rb'), quote = True)
-                logger.info("converted filesize: %0.0iK", os.stat(OUTPUT_FILE).st_size/1024)
+            bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.UPLOAD_VIDEO)
+            bot.send_video(chat_id=update.message.chat_id, video=open(OUTPUT_FILE, 'rb'), quote = True)
+            logger.info("converted filesize: %0.0iK", os.stat(OUTPUT_FILE).st_size/1024)
         delete_files()
     # todo: fix this with bot API filters
     except AttributeError:
         None
+    except TelegramError as e:
+        logger.error(e)
  
 # admin-only command for restart
 @restricted
