@@ -1,0 +1,12 @@
+[default]
+admin = admin_id
+token = your_token
+
+[video.settings]
+input   = temporary input filename
+output  = temporary output filename
+bin     = path to ffmpeg binary
+
+[ffmpeg.settings]
+bv = video bitrate (see ffmpeg settings)
+ba = audio bitrate (see ffmpeg settings)
