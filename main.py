@@ -1,16 +1,15 @@
 #! /usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from telegram.error import TelegramError
 import telegram
-from functools import wraps
 import urllib.request
 import logging
 import re
 import subprocess
 import configparser
 import os
+
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.error import TelegramError
+
 
 config = configparser.ConfigParser()
 
