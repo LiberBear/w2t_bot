@@ -34,33 +34,6 @@ logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-<<<<<<< HEAD
-=======
-# admin privileges decorator
-def restricted(func):
-    @wraps(func)
-    def wrapped(bot, update, *args, **kwargs):
-        try:
-            user_id = update.message.from_user.id
-        except (NameError, AttributeError):
-            try:
-                user_id = update.inline_query.from_user.id
-            except (NameError, AttributeError):
-                try:
-                    user_id = update.chosen_inline_result.from_user.id
-                except (NameError, AttributeError):
-                    try:
-                        user_id = update.callback_query.from_user.id
-                    except (NameError, AttributeError):
-                        print("No user_id available in update.")
-                        return
-        if user_id not in ADMIN:
-            print("Unauthorized access denied for {}.".format(chat_id))
-            return
-        return func(bot, update, *args, **kwargs)
-    return wrapped
-
->>>>>>> ad0b40953b4b90e6e3640a252f218fef497e8053
 # delete files after converting
 def delete_files():
     os.remove(INPUT_FILE)
